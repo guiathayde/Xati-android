@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_login"
+    android:background="?attr/loginBackground"
     android:padding="16dp"
     android:fitsSystemWindows="true"
     tools:context=".LoginActivity">
@@ -27,7 +27,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="?attr/buttonBackground"
         android:drawableLeft="@drawable/ic_google_24"
         android:elevation="8dp"
         android:paddingTop="16dp"

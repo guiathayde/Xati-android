@@ -7,7 +7,7 @@
     <color name="green_500">#04D361</color>
 
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
 
-    <color name="background_login">#F7F7F9</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_500">#F7F7F9</color>
 </resources>
