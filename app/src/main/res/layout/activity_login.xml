@@ -37,7 +37,7 @@
         android:elevation="8dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
-        android:text="@string/sign_in"
+        android:text="@string/sign_in_with_google"
         android:textAllCaps="false"
         android:textColor="@color/blue_700"
         android:textSize="18sp"
