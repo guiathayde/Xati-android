@@ -2,4 +2,8 @@
     <string name="app_name">Xati</string>
     <string name="xati_logo">Xati logo</string>
     <string name="sign_in">Sign in with Google</string>
+    <string name="sign_up">Sign up with Google</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="next">Next</string>
 </resources>

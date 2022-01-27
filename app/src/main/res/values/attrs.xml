@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="buttonLoginBackground" format="color" />
     <attr name="buttonBackground" format="color" />
+
     <attr name="loginBackground" format="color" />
+    <attr name="inputTextBackground" format="color" />
+    <attr name="textDescription" format="color" />
 </resources>

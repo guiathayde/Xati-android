@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/loginBackground"
-    android:padding="16dp"
-    android:fitsSystemWindows="true"
     tools:context=".LoginActivity">
+
+    <FrameLayout
+        android:id="@+id/frameLayoutLogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <ImageView
         android:id="@+id/imageLogo"
@@ -20,15 +24,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="?attr/buttonBackground"
+        android:backgroundTint="?attr/buttonLoginBackground"
         android:drawableLeft="@drawable/ic_google_24"
+        app:cornerRadius="12dp"
         android:elevation="8dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
