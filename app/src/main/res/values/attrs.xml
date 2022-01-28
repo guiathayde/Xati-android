@@ -4,6 +4,10 @@
     <attr name="buttonBackground" format="color" />
 
     <attr name="loginBackground" format="color" />
+
+    <attr name="modalBottomDialogBackground" format="color" />
+    <attr name="modalBottomDialogHandle" format="color" />
+
     <attr name="inputTextBackground" format="color" />
     <attr name="textDescription" format="color" />
 </resources>
