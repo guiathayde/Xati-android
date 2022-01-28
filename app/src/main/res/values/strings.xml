@@ -16,4 +16,7 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="enter_your_email">Enter your email</string>
     <string name="recover_password">Recover password</string>
+    <string name="registration_successful">Registration successful</string>
+    <string name="ok">Ok</string>
+    <string name="check_icon">Check icon</string>
 </resources>
