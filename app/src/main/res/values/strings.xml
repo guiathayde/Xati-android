@@ -19,4 +19,7 @@
     <string name="registration_successful">Registration successful</string>
     <string name="ok">Ok</string>
     <string name="check_icon">Check icon</string>
+    <string name="profile">Profile</string>
+    <string name="username">Username</string>
+    <string name="logout">Logout</string>
 </resources>
