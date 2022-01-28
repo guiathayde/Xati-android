@@ -5,10 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
-import kotlinx.android.synthetic.main.fragment_upload_profile_photo.*
+import com.guiathayde.xati.databinding.FragmentUploadProfilePhotoBinding
 
 class UploadProfilePhotoFragment : Fragment() {
+
+    private lateinit var binding: FragmentUploadProfilePhotoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,14 +19,14 @@ class UploadProfilePhotoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_upload_profile_photo, container, false)
+        binding = FragmentUploadProfilePhotoBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        buttonEditPhoto.setOnClickListener {
+        binding.buttonEditPhoto.setOnClickListener {
             ModalBottomDialogFragment().show(activity!!.supportFragmentManager, "modalBottomDialogCamera" )
         }
     }

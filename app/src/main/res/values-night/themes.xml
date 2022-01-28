@@ -27,5 +27,6 @@
 
         <item name="inputTextBackground">@color/blue_200</item>
         <item name="textDescription">@color/blue_200</item>
+        <item name="textLastMessage">@color/blue_200</item>
     </style>
 </resources>

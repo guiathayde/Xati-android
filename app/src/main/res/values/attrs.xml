@@ -10,4 +10,5 @@
 
     <attr name="inputTextBackground" format="color" />
     <attr name="textDescription" format="color" />
+    <attr name="textLastMessage" format="color" />
 </resources>

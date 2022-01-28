@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardImageProfile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        app:cardCornerRadius="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <ImageView
+            android:id="@+id/imageProfile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/profile_photo"
+            android:background="@drawable/image_circle"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile_photo" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username"
+        android:textColor="?attr/textDescription"
+        android:textSize="16sp"
+        android:fontFamily="@font/intersemibold"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/cardImageProfile"
+        app:layout_constraintTop_toTopOf="@+id/cardImageProfile" />
+
+    <TextView
+        android:id="@+id/textLastMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/example_of_last_message"
+        android:textColor="?attr/textLastMessage"
+        android:textSize="16sp"
+        android:fontFamily="@font/interregular"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/cardImageProfile"
+        app:layout_constraintTop_toBottomOf="@+id/textUsername" />
+
+    <TextView
+        android:id="@+id/textTimeLastMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2min ago"
+        android:textColor="?attr/textLastMessage"
+        android:textSize="12sp"
+        android:fontFamily="@font/interregular"
+        android:layout_marginEnd="54dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textUsername"
+        app:layout_constraintBottom_toBottomOf="@+id/textUsername" />
+
+    <TextView
+        android:id="@+id/textChatNotification"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:text="2"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:fontFamily="@font/intersemibold"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:background="@drawable/chat_notification_circle"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/textTimeLastMessage"
+        app:layout_constraintBottom_toBottomOf="@+id/textLastMessage"
+        app:layout_constraintEnd_toStartOf="@+id/imageChevronRight" />
+
+    <ImageView
+        android:id="@+id/imageChevronRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_chevron_right"
+        app:layout_constraintStart_toEndOf="@+id/textTimeLastMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cardImageProfile"
+        app:layout_constraintBottom_toBottomOf="@+id/cardImageProfile"
+        android:contentDescription="@string/chevron_right"
+        app:tint="?attr/textDescription" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/blue_200"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

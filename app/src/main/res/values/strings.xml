@@ -22,4 +22,10 @@
     <string name="profile">Profile</string>
     <string name="username">Username</string>
     <string name="logout">Logout</string>
+    <string name="find_users">Find users</string>
+    <string name="arrow_right">Arrow right</string>
+    <string name="find_users_here">Find users here</string>
+    <string name="no_chat_found">No chat found</string>
+    <string name="example_of_last_message">Example of last message</string>
+    <string name="chevron_right">Chevron right</string>
 </resources>
