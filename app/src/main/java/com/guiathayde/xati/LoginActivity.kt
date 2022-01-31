@@ -3,7 +3,9 @@ package com.guiathayde.xati
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.guiathayde.xati.databinding.ActivityLoginBinding
+import java.util.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -16,7 +18,13 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.buttonSignUp.setOnClickListener {
-            startActivity(Intent(this, HomeActivity::class.java))
+            val uuid = UUID.randomUUID().toString()
+                .replace("-", "")
+                .replace("[^\\d.]".toRegex(), "")
+                .substring(0, 12)
+            Log.i("UUID", uuid)
+
+            // startActivity(Intent(this, HomeActivity::class.java))
         }
     }
 }

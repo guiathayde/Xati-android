@@ -28,4 +28,9 @@
     <string name="no_chat_found">No chat found</string>
     <string name="example_of_last_message">Example of last message</string>
     <string name="chevron_right">Chevron right</string>
+    <string name="search_user">Search user</string>
+    <string name="enter_your_friends_code">Enter your friend\'s code</string>
+    <string name="search_button">Search button</string>
+    <string name="user_not_found">User not found</string>
+    <string name="sad_emoji">Sad Emoji</string>
 </resources>
