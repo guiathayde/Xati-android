@@ -34,4 +34,5 @@
     <string name="user_not_found">User not found</string>
     <string name="sad_emoji">Sad Emoji</string>
     <string name="example_code">123456789123</string>
+    <string name="message">Message</string>
 </resources>

@@ -8,7 +8,7 @@
     android:background="@drawable/rounded_top_modal_bottom_dialog"
     android:backgroundTint="?attr/modalBottomDialogBackground"
     android:elevation="12dp"
-    tools:context=".ModalBottomDialogFragment">
+    tools:context=".ui.fragment.ModalBottomDialogFragment">
 
     <View
         android:id="@+id/viewHandle"

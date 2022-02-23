@@ -1,4 +1,4 @@
-package com.guiathayde.xati
+package com.guiathayde.xati.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -27,7 +27,7 @@ class UploadProfilePhotoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonEditPhoto.setOnClickListener {
-            ModalBottomDialogFragment().show(activity!!.supportFragmentManager, "modalBottomDialogCamera" )
+            ModalBottomDialogFragment().show(requireActivity().supportFragmentManager, "modalBottomDialogCamera" )
         }
     }
 }

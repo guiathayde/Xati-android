@@ -1,4 +1,4 @@
-package com.guiathayde.xati
+package com.guiathayde.xati.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

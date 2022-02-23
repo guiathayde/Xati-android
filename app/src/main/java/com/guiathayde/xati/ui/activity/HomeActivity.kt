@@ -1,4 +1,4 @@
-package com.guiathayde.xati
+package com.guiathayde.xati.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.guiathayde.xati.databinding.ActivityHomeBinding
 import com.guiathayde.xati.model.Chats
+import com.guiathayde.xati.ui.adapter.ChatsAdapter
 
 class HomeActivity : AppCompatActivity() {
 
