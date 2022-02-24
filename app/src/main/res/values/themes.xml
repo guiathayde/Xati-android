@@ -31,4 +31,11 @@
         <item name="textDescription">@color/blue_700</item>
         <item name="textLastMessage">@color/gray_100</item>
     </style>
+
+    <style name="Theme.Splash" parent="Theme.SplashScreen">
+        <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/blue_500</item>
+        <item name="android:windowSplashScreenIconBackgroundColor" tools:targetApi="s">@color/blue_500</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/ic_splash_logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.Xati</item>
+    </style>
 </resources>
