@@ -3,19 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/guiathayde/xati/app/src/main/res/drawable-night/ic_xati_logo.xml" value="0.137" />
+        <entry key="..\:/guiathayde/xati/app/src/main/res/drawable-night/splash_logo.xml" value="0.244" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/drawable-night/xati_logo.xml" value="0.3255" />
+        <entry key="..\:/guiathayde/xati/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1675" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/drawable/button_border.xml" value="0.3255" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/drawable/chat_notification_circle.xml" value="0.3255" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/drawable/handle_modal_bottom_dialog.xml" value="0.3255" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/drawable/ic_launcher_background.xml" value="0.37864583333333335" />
+        <entry key="..\:/guiathayde/xati/app/src/main/res/drawable/ic_splash_logo.xml" value="0.244" />
+        <entry key="..\:/guiathayde/xati/app/src/main/res/drawable/ic_xati_logo.xml" value="0.137" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/drawable/image_circle.xml" value="0.3255" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/drawable/rounded_divider.xml" value="0.3255" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/drawable/rounded_top_modal_bottom_dialog.xml" value="0.3255" />
+        <entry key="..\:/guiathayde/xati/app/src/main/res/drawable/splash_background.xml" value="0.3255" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/drawable/xati_logo.xml" value="0.37864583333333335" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/layout-v23/fragment_chat.xml" value="0.3625" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/layout/activity_home.xml" value="0.3625" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/layout/activity_login.xml" value="0.3625" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/guiathayde/xati/app/src/main/res/layout/activity_splash.xml" value="0.3625" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/layout/adapter_recycler_chat.xml" value="0.3625" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/layout/adapter_recycler_chats.xml" value="0.3625" />
         <entry key="..\:/guiathayde/xati/app/src/main/res/layout/fragment_chat.xml" value="0.3625" />

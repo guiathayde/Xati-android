@@ -22,6 +22,7 @@
         <item name="buttonBackground">@color/blue_500</item>
 
         <item name="loginBackground">@color/white_500</item>
+        <item name="splashBackground">@color/blue_500</item>
 
         <item name="modalBottomDialogBackground">@color/white</item>
         <item name="modalBottomDialogHandle">@color/blue_500</item>
