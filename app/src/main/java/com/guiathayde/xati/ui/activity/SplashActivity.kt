@@ -7,6 +7,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.guiathayde.xati.R
 
 class SplashActivity : AppCompatActivity() {
@@ -20,9 +22,13 @@ class SplashActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-        Handler(Looper.getMainLooper()).postDelayed({
+        val user = Firebase.auth.currentUser
+        if (user != null) {
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
+        } else {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
-        }, 500)
+        }
     }
 }
