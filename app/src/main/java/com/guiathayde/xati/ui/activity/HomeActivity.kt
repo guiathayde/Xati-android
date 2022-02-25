@@ -1,22 +1,24 @@
 package com.guiathayde.xati.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.guiathayde.xati.R
 import com.guiathayde.xati.databinding.ActivityHomeBinding
 import com.guiathayde.xati.model.Chats
+import com.guiathayde.xati.service.ChatConstants
 import com.guiathayde.xati.service.SavedPreference
 import com.guiathayde.xati.ui.adapter.ChatsAdapter
-import com.guiathayde.xati.ui.fragment.ProfileFragment
+import com.guiathayde.xati.ui.viewmodel.HomeViewModel
 import com.squareup.picasso.Picasso
 
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var viewModel: HomeViewModel
     private lateinit var savedPreference: SavedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,34 +27,44 @@ class HomeActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        viewModel = HomeViewModel()
         savedPreference = SavedPreference(this);
 
         val avatarURL = savedPreference.getAvatarURL()
         Picasso.get().load(avatarURL).into(binding.imageProfile)
 
-        binding.cardImageProfile.setOnClickListener {
-            // TODO - Abrir ProfileActivity
+        // TODO - Set to use internet chats
+        binding.recyclerChats.visibility = View.GONE
+        viewModel.chats.observe(this) { chats ->
+            if (chats.isNotEmpty()) {
+                binding.recyclerChats.layoutManager =
+                    LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
+
+                binding.recyclerChats.adapter = ChatsAdapter { position ->
+                    onListItemClick(position)
+                }.apply { chatList = chats.toMutableList() }
+
+                binding.recyclerChats.visibility = View.VISIBLE
+                binding.textNoChatFound.visibility = View.GONE
+                binding.textFindUsersHere.visibility = View.GONE
+            }
         }
 
-        // TODO - Set to use internet chats
-        val chats = mutableListOf<Chats>()
-        chats.add(Chats(
-            0,
-            "Annette Black",
-            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-            "Hey, did you talk to her?",
-            "1643402679373",
-            2
-        ))
+        binding.cardImageProfile.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
 
-        if (chats.size < 0) {
-            binding.recyclerChats.visibility = View.GONE
-        } else {
-            binding.recyclerChats.adapter = ChatsAdapter(chats)
-            binding.recyclerChats.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        binding.floatingActionButton.setOnClickListener {
+            startActivity(Intent(this, SearchUserActivity::class.java))
+        }
+    }
 
-            binding.textNoChatFound.visibility = View.GONE
-            binding.textFindUsersHere.visibility = View.GONE
+    private fun onListItemClick(position: Int) {
+        val selectedUser = viewModel.getSelectedUser(position)
+        if (selectedUser != null) {
+            val intent = Intent(this, ChatActivity::class.java)
+            intent.putExtra(ChatConstants.SELECTED_USER, selectedUser)
+            startActivity(intent)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.guiathayde.xati.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.guiathayde.xati.databinding.AdapterRecyclerChatsBinding
@@ -9,10 +10,10 @@ import com.squareup.picasso.Picasso
 import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
 
-class ChatsAdapter(private val chats: Collection<Chats>) : RecyclerView.Adapter<ChatsAdapter.ViewHolder>() {
+class ChatsAdapter(private val onItemClicked: (position: Int) -> Unit) :
+    RecyclerView.Adapter<ChatsAdapter.ViewHolder>() {
 
-    class ViewHolder(val binding: AdapterRecyclerChatsBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    var chatList = mutableListOf<Chats>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(
@@ -20,11 +21,12 @@ class ChatsAdapter(private val chats: Collection<Chats>) : RecyclerView.Adapter<
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onItemClicked
         )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        chats.forEach {
+        chatList.forEach {
             Picasso.get().load(it.avatarURL).into(holder.binding.imageProfile)
 
             holder.binding.textUsername.text = it.name
@@ -40,6 +42,21 @@ class ChatsAdapter(private val chats: Collection<Chats>) : RecyclerView.Adapter<
     }
 
     override fun getItemCount(): Int {
-        return chats.size
+        return chatList.size
+    }
+
+    class ViewHolder(
+        val binding: AdapterRecyclerChatsBinding,
+        private val onItemClicked: (position: Int) -> Unit
+    ) :
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+        init {
+            binding.root.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            onItemClicked(position)
+        }
     }
 }

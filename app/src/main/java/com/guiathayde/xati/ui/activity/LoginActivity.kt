@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.guiathayde.xati.R
 import com.guiathayde.xati.databinding.ActivityLoginBinding
+import com.guiathayde.xati.service.GoogleSignInClientInstance
 import com.guiathayde.xati.service.SavedPreference
 
 
@@ -31,11 +32,7 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.request_id_token_google_sign_in))
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        mGoogleSignInClient = GoogleSignInClientInstance.get(this)
         firebaseAuth = FirebaseAuth.getInstance()
 
         savedPreference = SavedPreference(this)

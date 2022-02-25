@@ -1,6 +1,6 @@
 package com.guiathayde.xati.model
 
-import java.util.*
+import java.io.Serializable
 
 data class Chats(
     val id: Int,
@@ -9,4 +9,4 @@ data class Chats(
     val lastMessage: String?,
     val timeLastMessage: String?,
     val notifications: Int?
-)
+) : Serializable

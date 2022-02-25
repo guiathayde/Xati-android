@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/loginBackground"
-    tools:context=".ui.fragment.ChatFragment">
+    tools:context=".ui.activity.ChatActivity">
 
     <ImageButton
         android:id="@+id/buttonBack"
@@ -33,15 +33,25 @@
         app:layout_constraintTop_toTopOf="@+id/buttonBack"
         app:layout_constraintBottom_toBottomOf="@+id/buttonBack" />
 
-    <ImageView
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardImageProfile"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/profile_photo"
+        app:cardCornerRadius="25dp"
         android:layout_marginEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/buttonBack"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonBack"
-        android:contentDescription="@string/profile_photo" />
+        app:layout_constraintBottom_toBottomOf="@+id/buttonBack" >
+
+        <ImageView
+            android:id="@+id/imageProfile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/profile_photo"
+            android:background="@drawable/image_circle"
+            android:scaleType="centerCrop"
+            android:src="@drawable/profile_photo" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

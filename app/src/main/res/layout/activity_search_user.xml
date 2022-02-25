@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/loginBackground"
-    tools:context=".ui.fragment.SearchUserFragment">
+    tools:context=".ui.activity.SearchUserActivity">
 
     <ImageButton
         android:id="@+id/buttonBack"
@@ -53,6 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputUserCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/enter_your_friends_code"
@@ -160,6 +161,7 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageView
+        android:id="@+id/imageUserNotFound"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:src="@drawable/ic_sad_emoji"

@@ -5,9 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.Xati"
     android:background="?attr/loginBackground"
-    tools:context=".ui.fragment.ProfileFragment">
+    tools:context=".ui.activity.ProfileActivity">
 
     <ImageButton
         android:id="@+id/buttonBack"
