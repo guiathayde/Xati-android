@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.guiathayde.xati.R
 import com.guiathayde.xati.databinding.ActivityChatBinding
 import com.guiathayde.xati.model.Chats
+import com.guiathayde.xati.model.User
 import com.guiathayde.xati.service.ChatConstants
 import com.guiathayde.xati.service.SavedPreference
 import com.squareup.picasso.Picasso
@@ -24,8 +25,10 @@ class ChatActivity : AppCompatActivity() {
 
         val selectedUser = intent.getSerializableExtra(ChatConstants.SELECTED_USER) as Chats
 
-        binding.textUsername.text = selectedUser.name
-        Picasso.get().load(selectedUser.avatarURL).into(binding.imageProfile)
+        binding.textUsername.text = selectedUser.user?.displayName ?: ""
+        if (selectedUser.user!!.photoUrl!!.isNotEmpty()) {
+            Picasso.get().load(selectedUser.user!!.photoUrl).into(binding.imageProfile)
+        }
 
         binding.buttonBack.setOnClickListener { onBackPressed() }
     }

@@ -1,13 +1,18 @@
 package com.guiathayde.xati.ui.activity
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.guiathayde.xati.databinding.ActivityProfileBinding
 import com.guiathayde.xati.service.GoogleSignInClientInstance
 import com.guiathayde.xati.service.SavedPreference
 import com.squareup.picasso.Picasso
+
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -30,6 +35,15 @@ class ProfileActivity : AppCompatActivity() {
 
         val username = savedPreference.getUsername()
         binding.textInputName.setText(username)
+
+        val userCode = savedPreference.getUserCode()
+        binding.textInputUserCode.setText(userCode)
+        binding.textInputUserCode.setOnClickListener {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("User Code", binding.textInputUserCode.text)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(this, "Código copiado.", Toast.LENGTH_SHORT).show()
+        }
 
         binding.buttonBack.setOnClickListener {
             onBackPressed()

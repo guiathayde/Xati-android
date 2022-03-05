@@ -27,9 +27,9 @@ class ChatsAdapter(private val onItemClicked: (position: Int) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         chatList.forEach {
-            Picasso.get().load(it.avatarURL).into(holder.binding.imageProfile)
+            Picasso.get().load(it.user!!.photoUrl).into(holder.binding.imageProfile)
 
-            holder.binding.textUsername.text = it.name
+            holder.binding.textUsername.text = it.user!!.displayName
             holder.binding.textLastMessage.text = it.lastMessage
 
             val calendar = Calendar.getInstance()

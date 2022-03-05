@@ -13,10 +13,16 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.guiathayde.xati.R
 import com.guiathayde.xati.databinding.ActivityLoginBinding
+import com.guiathayde.xati.model.User
 import com.guiathayde.xati.service.GoogleSignInClientInstance
 import com.guiathayde.xati.service.SavedPreference
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class LoginActivity : AppCompatActivity() {
@@ -25,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var savedPreference: SavedPreference
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
 
         mGoogleSignInClient = GoogleSignInClientInstance.get(this)
         firebaseAuth = FirebaseAuth.getInstance()
+        database = Firebase.database.reference
 
         savedPreference = SavedPreference(this)
 
@@ -60,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
                 updateUI(account)
             }
         } catch (e: ApiException) {
-            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Erro ao fazer login.", Toast.LENGTH_SHORT).show()
             Log.e("ERROR", e.toString())
         }
     }
@@ -72,11 +80,38 @@ class LoginActivity : AppCompatActivity() {
                 savedPreference.setEmail(account.email.toString())
                 savedPreference.setUsername(account.displayName.toString())
                 savedPreference.setAvatarURL(account.photoUrl.toString())
+
+                saveNewUserOnDatabase(account.id)
+
                 Toast.makeText(this, "Login feito com sucesso.", Toast.LENGTH_SHORT).show()
+
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             } else {
                 Toast.makeText(this, "Erro ao fazer login.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun saveNewUserOnDatabase(userId: String?) {
+        database.child("users/${userId}").get().addOnSuccessListener {
+            if (it.value == null) {
+                val uuid = UUID.randomUUID().toString()
+                    .replace("-", "")
+                    .replace("[^\\d.]".toRegex(), "")
+                    .substring(0, 12)
+
+                val userData = User(
+                    uuid,
+                    savedPreference.getUsername(),
+                    savedPreference.getEmail(),
+                    savedPreference.getAvatarURL()
+                )
+
+                val newUserId = mapOf(userId to userData)
+                database.child("users").updateChildren(newUserId)
+            } else {
+                savedPreference.setUserCode(it.value.toString())
             }
         }
     }

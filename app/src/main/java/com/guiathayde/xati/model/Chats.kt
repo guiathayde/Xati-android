@@ -2,11 +2,9 @@ package com.guiathayde.xati.model
 
 import java.io.Serializable
 
-data class Chats(
-    val id: Int,
-    val name: String,
-    val avatarURL: String?,
-    val lastMessage: String?,
-    val timeLastMessage: String?,
-    val notifications: Int?
+class Chats(
+    var user: User?,
+    var lastMessage: String? = null,
+    var timeLastMessage: String? = null,
+    var notifications: Int? = null
 ) : Serializable
