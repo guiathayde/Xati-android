@@ -30,13 +30,13 @@ class ProfileActivity : AppCompatActivity() {
 
         mGoogleSignInClient = GoogleSignInClientInstance.get(this)
 
-        val avatarURL = savedPreference.getAvatarURL()
+        val avatarURL = savedPreference.getUserPhotoUrl()
         Picasso.get().load(avatarURL).into(binding.imageProfile)
 
-        val username = savedPreference.getUsername()
+        val username = savedPreference.getUserDisplayName()
         binding.textInputName.setText(username)
 
-        val userCode = savedPreference.getUserCode()
+        val userCode = savedPreference.getUserUid()
         binding.textInputUserCode.setText(userCode)
         binding.textInputUserCode.setOnClickListener {
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

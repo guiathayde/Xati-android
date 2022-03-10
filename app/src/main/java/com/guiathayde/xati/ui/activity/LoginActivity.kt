@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -16,13 +15,11 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.guiathayde.xati.R
 import com.guiathayde.xati.databinding.ActivityLoginBinding
 import com.guiathayde.xati.model.User
 import com.guiathayde.xati.service.GoogleSignInClientInstance
 import com.guiathayde.xati.service.SavedPreference
 import java.util.*
-import kotlin.collections.HashMap
 
 
 class LoginActivity : AppCompatActivity() {
@@ -77,9 +74,10 @@ class LoginActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                savedPreference.setEmail(account.email.toString())
-                savedPreference.setUsername(account.displayName.toString())
-                savedPreference.setAvatarURL(account.photoUrl.toString())
+                savedPreference.setUserId(account.id.toString())
+                savedPreference.setUserEmail(account.email.toString())
+                savedPreference.setUserDisplayName(account.displayName.toString())
+                savedPreference.setUserPhotoUrl(account.photoUrl.toString())
 
                 saveNewUserOnDatabase(account.id)
 
@@ -99,19 +97,20 @@ class LoginActivity : AppCompatActivity() {
                 val uuid = UUID.randomUUID().toString()
                     .replace("-", "")
                     .replace("[^\\d.]".toRegex(), "")
-                    .substring(0, 12)
+                    .substring(0, 8)
 
                 val userData = User(
                     uuid,
-                    savedPreference.getUsername(),
-                    savedPreference.getEmail(),
-                    savedPreference.getAvatarURL()
+                    savedPreference.getUserDisplayName(),
+                    savedPreference.getUserEmail(),
+                    savedPreference.getUserPhotoUrl()
                 )
 
                 val newUserId = mapOf(userId to userData)
                 database.child("users").updateChildren(newUserId)
             } else {
-                savedPreference.setUserCode(it.value.toString())
+                val userData = it.getValue(User::class.java)
+                savedPreference.setUserUid(userData!!.uid.toString())
             }
         }
     }

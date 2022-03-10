@@ -34,7 +34,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/buttonBack" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textFieldSearch"
+        android:id="@+id/textFieldMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/enter_your_friends_code"
             android:textColorHint="@color/blue_700"
-            android:inputType="textEmailAddress"
+            android:inputType="number"
             android:textColor="@color/blue_700"
             android:textSize="16sp"
             android:fontFamily="@font/intermedium"
@@ -75,10 +75,10 @@
         app:iconPadding="0dp"
         android:background="@drawable/circle_style"
         android:elevation="8dp"
-        app:layout_constraintStart_toEndOf="@+id/textFieldSearch"
+        app:layout_constraintStart_toEndOf="@+id/textFieldMessage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textFieldSearch"
-        app:layout_constraintBottom_toBottomOf="@+id/textFieldSearch"
+        app:layout_constraintTop_toTopOf="@+id/textFieldMessage"
+        app:layout_constraintBottom_toBottomOf="@+id/textFieldMessage"
         android:contentDescription="@string/search_button" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,7 +88,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFieldSearch" >
+        app:layout_constraintTop_toBottomOf="@+id/textFieldMessage" >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardImageProfile"

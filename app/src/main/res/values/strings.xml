@@ -36,4 +36,5 @@
     <string name="example_code">123456789123</string>
     <string name="message">Message</string>
     <string name="request_id_token_google_sign_in">771501110601-bpfsrqfrbf8f0lnlvetg0hctdbhqkqhq.apps.googleusercontent.com</string>
+    <string name="message_example">Message example</string>
 </resources>

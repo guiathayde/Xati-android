@@ -23,6 +23,8 @@
         <item name="loginBackground">@color/blue_700</item>
         <item name="splashBackground">@color/blue_700</item>
 
+        <item name="messageBackground">@color/blue_200</item>
+
         <item name="modalBottomDialogBackground">@color/blue_500</item>
         <item name="modalBottomDialogHandle">@color/blue_700</item>
 
@@ -36,5 +38,15 @@
         <item name="android:windowSplashScreenIconBackgroundColor" tools:targetApi="s">@color/blue_700</item>
         <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/ic_splash_logo</item>
         <item name="postSplashScreenTheme">@style/Theme.Xati</item>
+    </style>
+
+    <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
     </style>
 </resources>

@@ -6,6 +6,8 @@
     <attr name="loginBackground" format="color" />
     <attr name="splashBackground" format="color" />
 
+    <attr name="messageBackground" format="color" />
+
     <attr name="modalBottomDialogBackground" format="color" />
     <attr name="modalBottomDialogHandle" format="color" />
 

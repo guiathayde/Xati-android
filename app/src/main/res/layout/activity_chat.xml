@@ -54,49 +54,69 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMessages"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/textFieldMessage"
+        app:layout_constraintBottom_toTopOf="@+id/textFieldMessageContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textUsername" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textFieldMessage"
+    <FrameLayout
+        android:id="@+id/textFieldMessageContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:hintEnabled="false"
-        app:boxStrokeColor="@color/gray_200"
-        app:boxBackgroundColor="?attr/inputTextBackground"
         android:layout_marginBottom="32dp"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
-        app:boxCornerRadiusTopStart="12dp"
-        app:boxCornerRadiusTopEnd="12dp"
-        app:boxCornerRadiusBottomStart="12dp"
-        app:boxCornerRadiusBottomEnd="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textFieldMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/message"
-            android:textColorHint="@color/blue_700"
-            android:drawableEnd="@drawable/ic_send"
-            android:drawableTint="@color/blue_700"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/blue_700"
-            android:textSize="16sp"
-            android:fontFamily="@font/intermedium"
-            />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:hintEnabled="false"
+            app:boxStrokeColor="@color/gray_200"
+            app:boxBackgroundColor="?attr/inputTextBackground"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/message"
+                android:textColorHint="@color/blue_700"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/blue_700"
+                android:textSize="16sp"
+                android:fontFamily="@font/intermedium"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSendMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_marginEnd="4dp"
+            app:icon="@drawable/ic_send"
+            android:layout_gravity="center_vertical|end"
+            android:gravity="center" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

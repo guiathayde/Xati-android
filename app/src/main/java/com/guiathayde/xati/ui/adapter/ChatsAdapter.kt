@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.guiathayde.xati.databinding.AdapterRecyclerChatsBinding
 import com.guiathayde.xati.model.Chats
+import com.guiathayde.xati.service.SavedPreference
 import com.squareup.picasso.Picasso
 import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
@@ -13,10 +14,14 @@ import java.util.*
 class ChatsAdapter(private val onItemClicked: (position: Int) -> Unit) :
     RecyclerView.Adapter<ChatsAdapter.ViewHolder>() {
 
+    private lateinit var savedPreference: SavedPreference
+
     var chatList = mutableListOf<Chats>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        savedPreference = SavedPreference(parent.context)
+
+        return ViewHolder(
             AdapterRecyclerChatsBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -24,12 +29,16 @@ class ChatsAdapter(private val onItemClicked: (position: Int) -> Unit) :
             ),
             onItemClicked
         )
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         chatList.forEach {
-            Picasso.get().load(it.user!!.photoUrl).into(holder.binding.imageProfile)
+            val user = it.users!!.filter { user ->
+                user!!.email != savedPreference.getUserEmail()
+            }
+            Picasso.get().load(user[0]!!.photoUrl).into(holder.binding.imageProfile)
 
-            holder.binding.textUsername.text = it.user!!.displayName
+            holder.binding.textUsername.text = user[0]!!.displayName
             holder.binding.textLastMessage.text = it.lastMessage
 
             val calendar = Calendar.getInstance()
@@ -37,7 +46,17 @@ class ChatsAdapter(private val onItemClicked: (position: Int) -> Unit) :
             val ago: String = PrettyTime(Locale.getDefault()).format(calendar)
             holder.binding.textTimeLastMessage.text = ago
 
-            holder.binding.textChatNotification.text = it.notifications.toString()
+            var notificationNumber = 0
+            it.notifications!!.forEach { notification ->
+                if (notification!!.uid == savedPreference.getUserUid()) {
+                    notificationNumber = notification.totalNewMessages!!
+                }
+            }
+            if (notificationNumber > 0) {
+                holder.binding.textChatNotification.text = notificationNumber.toString()
+            } else {
+                holder.binding.textChatNotification.visibility = View.GONE
+            }
         }
     }
 
