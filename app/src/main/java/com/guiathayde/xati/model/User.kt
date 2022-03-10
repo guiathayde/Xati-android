@@ -7,5 +7,5 @@ data class User(
     var displayName: String? = null,
     var email: String? = null,
     var photoUrl: String? = null,
-    var chatIds: Collection<String?>? = null
+    var userChatsData: Collection<UserChatData?>? = null
 ) : Serializable

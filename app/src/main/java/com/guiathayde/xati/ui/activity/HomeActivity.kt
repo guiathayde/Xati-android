@@ -12,10 +12,7 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.guiathayde.xati.databinding.ActivityHomeBinding
-import com.guiathayde.xati.model.Chats
-import com.guiathayde.xati.model.Message
-import com.guiathayde.xati.model.Notification
-import com.guiathayde.xati.model.User
+import com.guiathayde.xati.model.*
 import com.guiathayde.xati.service.ChatConstants
 import com.guiathayde.xati.service.SavedPreference
 import com.guiathayde.xati.ui.adapter.ChatsAdapter
@@ -48,13 +45,13 @@ class HomeActivity : AppCompatActivity() {
         binding.recyclerChats.visibility = View.GONE
 
         val userId = savedPreference.getUserId() ?: ""
-        database.child("users").child(userId).child("chatsIds")
+        database.child("users").child(userId).child("userChatsData")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-
                     for (postSnapshot in snapshot.children) {
                         chatListUpdated.clear()
-                        val chatId = postSnapshot.value.toString()
+                        val userChatData = postSnapshot.getValue(UserChatData::class.java)
+                        val chatId = userChatData!!.chatId ?: ""
                         database.child("chats").child(chatId)
                             .addValueEventListener(object : ValueEventListener {
                                 override fun onDataChange(chat: DataSnapshot) {

@@ -30,7 +30,6 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private lateinit var chatData: Chats
     private var messageList = MutableLiveData<Collection<Message>>()
-    private var messageListSize = 0
     private var messageListUpdated = mutableListOf<Message>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,8 +77,6 @@ class ChatActivity : AppCompatActivity() {
 
                 binding.recyclerMessages.adapter =
                     MessagesAdapter(this).apply { messageList = messages.toMutableList() }
-
-                messageListSize = messages.size
             }
         }
 

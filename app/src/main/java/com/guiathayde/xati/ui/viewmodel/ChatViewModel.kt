@@ -10,6 +10,7 @@ import com.google.firebase.ktx.Firebase
 import com.guiathayde.xati.model.Chats
 import com.guiathayde.xati.model.Message
 import com.guiathayde.xati.model.Notification
+import com.guiathayde.xati.model.UserChatData
 import com.guiathayde.xati.service.SavedPreference
 import java.util.*
 
@@ -50,10 +51,10 @@ class ChatViewModel(application: Application, private var chatData: Chats) :
                 )
             )
 
-            database.child("users").child(savedPreference.getUserId()!!).child("chatsIds").push()
-                .setValue(chatData.id)
-            database.child("users").child(savedPreference.getSelectedUserId()!!).child("chatsIds")
-                .push().setValue(chatData.id)
+            database.child("users").child(savedPreference.getUserId()!!).child("userChatsData").push()
+                .setValue(UserChatData(chatData.id, toUser.uid))
+            database.child("users").child(savedPreference.getSelectedUserId()!!).child("userChatsData")
+                .push().setValue(UserChatData(chatData.id, savedPreference.getUserUid()))
         } else {
             val toUserNotification = chatData.notifications!!.find { it!!.uid == toUser.uid }
             val currentUserNotification = chatData.notifications!!.find { it!!.uid == savedPreference.getUserUid() }
