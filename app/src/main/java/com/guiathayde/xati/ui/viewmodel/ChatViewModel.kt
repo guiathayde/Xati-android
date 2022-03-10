@@ -2,6 +2,7 @@ package com.guiathayde.xati.ui.viewmodel
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
@@ -14,7 +15,8 @@ import java.util.*
 
 
 @SuppressLint("StaticFieldLeak")
-class ChatViewModel(application: Application, private var chatData: Chats) : AndroidViewModel(application) {
+class ChatViewModel(application: Application, private var chatData: Chats) :
+    AndroidViewModel(application) {
 
     private val context = getApplication<Application>().applicationContext
     private var savedPreference: SavedPreference = SavedPreference(context)
@@ -41,16 +43,26 @@ class ChatViewModel(application: Application, private var chatData: Chats) : And
                     1
                 )
             )
+            notification.add(
+                Notification(
+                    savedPreference.getUserUid(),
+                    0
+                )
+            )
 
-            database.child("users").child(savedPreference.getUserId()!!).child("chatsIds").push().setValue(chatData.id)
-            database.child("users").child(savedPreference.getSelectedUserId()!!).child("chatsIds").push().setValue(chatData.id)
+            database.child("users").child(savedPreference.getUserId()!!).child("chatsIds").push()
+                .setValue(chatData.id)
+            database.child("users").child(savedPreference.getSelectedUserId()!!).child("chatsIds")
+                .push().setValue(chatData.id)
         } else {
-            chatData.notifications!!.forEach {
-                if (it!!.uid != savedPreference.getUserUid()) {
-                    it.totalNewMessages = it.totalNewMessages!!.plus(1)
-                }
-                notification.add(it)
-            }
+            val toUserNotification = chatData.notifications!!.find { it!!.uid == toUser.uid }
+            val currentUserNotification = chatData.notifications!!.find { it!!.uid == savedPreference.getUserUid() }
+
+            toUserNotification!!.totalNewMessages = toUserNotification.totalNewMessages!!.plus(1)
+            currentUserNotification!!.totalNewMessages = 0
+
+            notification.add(toUserNotification)
+            notification.add(currentUserNotification)
         }
 
         val newChatData = Chats(

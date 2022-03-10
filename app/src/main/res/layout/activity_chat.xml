@@ -15,7 +15,7 @@
         android:backgroundTint="@android:color/transparent"
         android:src="@drawable/ic_back"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/back_button" />
@@ -72,38 +72,38 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textFieldMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:hintEnabled="false"
-            app:boxStrokeColor="@color/gray_200"
+            android:layout_width="312dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
             app:boxBackgroundColor="?attr/inputTextBackground"
-            app:boxCornerRadiusTopStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxStrokeColor="@color/gray_200"
+            app:hintEnabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textInputMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/message"
-                android:textColorHint="@color/blue_700"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/blue_700"
-                android:textSize="16sp"
                 android:fontFamily="@font/intermedium"
-                />
+                android:hint="@string/message"
+                android:inputType="text|textCapSentences|textAutoCorrect|textMultiLine"
+                android:maxLines="5"
+                android:textColor="@color/blue_700"
+                android:textColorHint="@color/blue_700"
+                android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +112,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-            android:layout_marginEnd="4dp"
             app:icon="@drawable/ic_send"
             android:layout_gravity="center_vertical|end"
             android:gravity="center" />

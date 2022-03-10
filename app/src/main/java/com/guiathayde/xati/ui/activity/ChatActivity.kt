@@ -1,7 +1,8 @@
 package com.guiathayde.xati.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.google.firebase.ktx.Firebase
 import com.guiathayde.xati.databinding.ActivityChatBinding
 import com.guiathayde.xati.model.Chats
 import com.guiathayde.xati.model.Message
+import com.guiathayde.xati.model.Notification
 import com.guiathayde.xati.service.ChatConstants
 import com.guiathayde.xati.service.SavedPreference
 import com.guiathayde.xati.ui.adapter.MessagesAdapter
@@ -26,7 +28,9 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var viewModel: ChatViewModel
     private lateinit var savedPreference: SavedPreference
     private lateinit var database: DatabaseReference
+    private lateinit var chatData: Chats
     private var messageList = MutableLiveData<Collection<Message>>()
+    private var messageListSize = 0
     private var messageListUpdated = mutableListOf<Message>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +39,7 @@ class ChatActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val chatData = intent.getSerializableExtra(ChatConstants.SELECTED_USER) as Chats
+        chatData = intent.getSerializableExtra(ChatConstants.SELECTED_USER) as Chats
 
         viewModel = ChatViewModel(this.application, chatData)
         savedPreference = SavedPreference(this)
@@ -68,17 +72,50 @@ class ChatActivity : AppCompatActivity() {
 
         messageList.observe(this) { messages ->
             if (messages.isNotEmpty()) {
-                binding.recyclerMessages.layoutManager =
-                    LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
+                val recyclerLayoutManager = LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
+                recyclerLayoutManager.stackFromEnd = true
+                binding.recyclerMessages.layoutManager = recyclerLayoutManager
 
                 binding.recyclerMessages.adapter =
                     MessagesAdapter(this).apply { messageList = messages.toMutableList() }
+
+                messageListSize = messages.size
             }
         }
 
-        binding.buttonBack.setOnClickListener { onBackPressed() }
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(
+            true
+        ) {
+            override fun handleOnBackPressed() {
+                cleanNotifications()
+                finish()
+            }
+        })
+        binding.buttonBack.setOnClickListener {
+            cleanNotifications()
+            finish()
+        }
         binding.buttonSendMessage.setOnClickListener {
             viewModel.sendMessage(binding.textInputMessage.text.toString())
+            binding.textInputMessage.text!!.clear()
+        }
+    }
+
+    private fun cleanNotifications() {
+        val notificationsUpdated = mutableListOf<Notification>()
+        database.child("chats").child(chatData.id!!).child("notifications").get().addOnSuccessListener {
+            notificationsUpdated.clear()
+            it.children.forEach { notificationSnapshot ->
+                val notification = notificationSnapshot.getValue(Notification::class.java)
+                if (notification!!.uid == savedPreference.getUserUid()) {
+                    val currentUserNotification = Notification(notification.uid, 0)
+                    notificationsUpdated.add(currentUserNotification)
+                } else {
+                    notificationsUpdated.add(notification)
+                }
+            }
+            database.child("chats").child(chatData.id!!).child("notifications")
+                .setValue(notificationsUpdated)
         }
     }
 }
