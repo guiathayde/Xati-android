@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.guiathayde.xati.databinding.ActivityHomeBinding
@@ -33,6 +30,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var savedPreference: SavedPreference
     private lateinit var database: DatabaseReference
     private var chatList = MutableLiveData<Collection<Chats>>()
+    private val chatListUpdated = mutableListOf<Chats>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,42 +51,60 @@ class HomeActivity : AppCompatActivity() {
         database.child("users").child(userId).child("chatsIds")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val chatListUpdated = mutableListOf<Chats>()
+
                     for (postSnapshot in snapshot.children) {
+                        chatListUpdated.clear()
                         val chatId = postSnapshot.value.toString()
-                        database.child("chats").child(chatId).get().addOnSuccessListener { chat ->
-                            val chatUsers = mutableListOf<User>()
-                            chat.child("users").children.forEach { user ->
-                                val addUser = User(
-                                    uid = user.child("uid").value.toString(),
-                                    displayName = user.child("displayName").value.toString(),
-                                    email = user.child("email").value.toString(),
-                                    photoUrl = user.child("photoUrl").value.toString(),
-                                )
-                                chatUsers.add(addUser)
-                            }
+                        database.child("chats").child(chatId)
+                            .addValueEventListener(object : ValueEventListener {
+                                override fun onDataChange(chat: DataSnapshot) {
+                                    if (chat.exists()) {
+                                        val chatUsers = mutableListOf<User>()
+                                        chat.child("users").children.forEach { user ->
+                                            val addUser = User(
+                                                uid = user.child("uid").value.toString(),
+                                                displayName = user.child("displayName").value.toString(),
+                                                email = user.child("email").value.toString(),
+                                                photoUrl = user.child("photoUrl").value.toString(),
+                                            )
+                                            chatUsers.add(addUser)
+                                        }
 
-                            val chatNotifications = mutableListOf<Notification>()
-                            chat.child("notifications").children.forEach { notification ->
-                                val addNotification = Notification(
-                                    uid = notification.child("uid").value.toString(),
-                                    totalNewMessages = notification.child("totalNewMessages").value.toString().toInt()
-                                )
-                                chatNotifications.add(addNotification)
-                            }
+                                        val chatNotifications = mutableListOf<Notification>()
+                                        chat.child("notifications").children.forEach { notification ->
+                                            val addNotification = Notification(
+                                                uid = notification.child("uid").value.toString(),
+                                                totalNewMessages = notification.child("totalNewMessages").value.toString()
+                                                    .toInt()
+                                            )
+                                            chatNotifications.add(addNotification)
+                                        }
 
-                            val chatLastMessage = chat.child("lastMessage").value.toString()
-                            val chatTimeLastMessage = chat.child("timeLastMessage").value.toString().toLong()
-                            val newChat = Chats(
-                                chatId,
-                                chatUsers,
-                                chatLastMessage,
-                                chatTimeLastMessage,
-                                chatNotifications
-                            )
-                            chatListUpdated.add(newChat)
-                            chatList.value = chatListUpdated
-                        }
+                                        val chatLastMessage =
+                                            chat.child("lastMessage").value.toString()
+                                        val chatTimeLastMessage =
+                                            chat.child("timeLastMessage").value.toString().toLong()
+                                        val newChat = Chats(
+                                            chatId,
+                                            chatUsers,
+                                            chatLastMessage,
+                                            chatTimeLastMessage,
+                                            chatNotifications
+                                        )
+
+                                        val oldChatPosition =
+                                            chatListUpdated.indexOfFirst { it.id == newChat.id }
+                                        if (oldChatPosition >= 0) {
+                                            chatListUpdated[oldChatPosition] = newChat
+                                        } else {
+                                            chatListUpdated.add(newChat)
+                                        }
+                                        chatList.value = chatListUpdated
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {}
+                            })
                     }
                 }
 
@@ -121,11 +137,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun onListItemClick(position: Int) {
-        val selectedUser = viewModel.getSelectedUser(position)
-        if (selectedUser != null) {
-            val intent = Intent(this, ChatActivity::class.java)
-            intent.putExtra(ChatConstants.SELECTED_USER, selectedUser)
-            startActivity(intent)
-        }
+        val selectedUser = chatList.value!!.elementAt(position)
+        val intent = Intent(this, ChatActivity::class.java)
+        intent.putExtra(ChatConstants.SELECTED_USER, selectedUser)
+        startActivity(intent)
     }
 }
