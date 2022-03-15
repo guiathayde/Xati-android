@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.guiathayde.xati.databinding.AdapterRecyclerChatsBinding
 import com.guiathayde.xati.model.Chats
 import com.guiathayde.xati.service.SavedPreference
-import com.squareup.picasso.Picasso
 import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
 
@@ -34,9 +34,9 @@ class ChatsAdapter(private val onItemClicked: (position: Int) -> Unit) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         chatList.forEach {
             val user = it.users!!.filter { user ->
-                user!!.email != savedPreference.getUserEmail()
+                user.email != savedPreference.getUserEmail()
             }
-            Picasso.get().load(user[0]!!.photoUrl).into(holder.binding.imageProfile)
+            Glide.with(holder.binding.root.context).load(user[0].photoUrl).into(holder.binding.imageProfile);
 
             holder.binding.textUsername.text = user[0]!!.displayName
             holder.binding.textLastMessage.text = it.lastMessage

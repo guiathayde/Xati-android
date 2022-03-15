@@ -6,23 +6,35 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.guiathayde.xati.R
+import com.guiathayde.xati.databinding.FragmentModalBottomDialogBinding
 
-class ModalBottomDialogFragment : BottomSheetDialogFragment() {
+class ModalBottomDialogFragment(private val cameraCallback: () -> Unit, val galleryCallback: () -> Unit) :
+    BottomSheetDialogFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var binding: FragmentModalBottomDialogBinding
+
+    override fun getTheme(): Int {
+        return R.style.BottomSheetDialogTheme
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_modal_bottom_dialog, container, false)
+    ): View {
+        binding = FragmentModalBottomDialogBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO - Aqui faz os listeners
+
+        binding.buttonCamera.setOnClickListener {
+            cameraCallback()
+            dismiss()
+        }
+        binding.buttonGallery.setOnClickListener {
+            galleryCallback()
+            dismiss()
+        }
     }
 }

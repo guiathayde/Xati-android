@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -17,7 +18,6 @@ import com.guiathayde.xati.service.ChatConstants
 import com.guiathayde.xati.service.SavedPreference
 import com.guiathayde.xati.ui.adapter.ChatsAdapter
 import com.guiathayde.xati.ui.viewmodel.HomeViewModel
-import com.squareup.picasso.Picasso
 
 
 class HomeActivity : AppCompatActivity() {
@@ -38,9 +38,6 @@ class HomeActivity : AppCompatActivity() {
         viewModel = HomeViewModel()
         savedPreference = SavedPreference(this)
         database = Firebase.database.reference
-
-        val avatarURL = savedPreference.getUserPhotoUrl()
-        Picasso.get().load(avatarURL).into(binding.imageProfile)
 
         binding.recyclerChats.visibility = View.GONE
 
@@ -131,6 +128,12 @@ class HomeActivity : AppCompatActivity() {
         binding.floatingActionButton.setOnClickListener {
             startActivity(Intent(this, SearchUserActivity::class.java))
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val avatarURL = savedPreference.getUserPhotoUrl()
+        Glide.with(this).load(avatarURL).into(binding.imageProfile)
     }
 
     private fun onListItemClick(position: Int) {

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -18,7 +19,6 @@ import com.guiathayde.xati.model.User
 import com.guiathayde.xati.model.UserChatData
 import com.guiathayde.xati.service.ChatConstants
 import com.guiathayde.xati.service.SavedPreference
-import com.squareup.picasso.Picasso
 import java.util.*
 
 class SearchUserActivity : AppCompatActivity() {
@@ -71,7 +71,7 @@ class SearchUserActivity : AppCompatActivity() {
                                 }
                             }
 
-                            Picasso.get().load(selectedUser.photoUrl).into(binding.imageProfile)
+                            Glide.with(this).load(selectedUser.photoUrl).into(binding.imageProfile);
                             binding.textUsername.text = selectedUser.displayName
 
                             binding.layoutUserFound.visibility = View.VISIBLE

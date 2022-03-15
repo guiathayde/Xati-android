@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -20,7 +21,6 @@ import com.guiathayde.xati.service.ChatConstants
 import com.guiathayde.xati.service.SavedPreference
 import com.guiathayde.xati.ui.adapter.MessagesAdapter
 import com.guiathayde.xati.ui.viewmodel.ChatViewModel
-import com.squareup.picasso.Picasso
 
 class ChatActivity : AppCompatActivity() {
 
@@ -50,7 +50,7 @@ class ChatActivity : AppCompatActivity() {
 
         binding.textUsername.text = user[0].displayName
         if (user[0].photoUrl!!.isNotEmpty()) {
-            Picasso.get().load(user[0].photoUrl).into(binding.imageProfile)
+            Glide.with(this).load(user[0].photoUrl).into(binding.imageProfile)
         }
 
         database.child("messages").child(chatData.id!!)
